@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\Controller;
+use Symfony\Component\Console\Input\Input;
+
 
 class UserController extends Controller
 {
@@ -15,9 +19,10 @@ class UserController extends Controller
     public function index()
     {
         //
-        $user = User::latest()->paginate(5);
-        return view('dashboard.user.index', compact('user'))
-                ->with('i', (request()->input('page',1) - 1) * 5);
+        return view('dashboard.user.index');
+
+        $users = User::latest()->paginate(5);
+        return view('dashboard.user.index', compact('users'))->with('i', (request()->Input('page',1) -1) * 5); 
     }
 
     /**
@@ -28,7 +33,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('user.create');
+        return view('dashboard.user.create');
     }
 
     /**
@@ -41,8 +46,12 @@ class UserController extends Controller
     {
         //
         $request->validate([
-            
-        ])
+            'name' => 'required',
+            'email' => 'required',
+            'role' => 'required',
+        ]);
+        User::create($request->all());
+        return redirect()->route('dashboard.user.index')->with('success', 'Data Berhasil di Input');
     }
 
     /**
@@ -51,9 +60,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
+        return view('dashboard.user.show', compact('users'));
     }
 
     /**
@@ -65,6 +75,7 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        return view('dashboard.user.edit', compact('users'));
     }
 
     /**
@@ -77,6 +88,13 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'role' => 'required',
+        ]);
+        $users->update($request->all());
+        return redirect()->route('dashboard.user.index')->with('success', 'Data Berhasil di Update');
     }
 
     /**
@@ -88,5 +106,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        $users->delete();
+        return redirect()->route('dashboard.user.index')->with('Success', 'Data Berhasil di Hapus');
     }
 }
