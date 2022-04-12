@@ -123,7 +123,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('user.create') }}" class="nav-link">
                   <i class="fas fa-user-plus nav-icon"></i>
                   <p>
                     Add User
