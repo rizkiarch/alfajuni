@@ -33,11 +33,13 @@
         <td>{{ $data->email }}</td>
         <td>{{ $data->role }}</td>
         <td class="text-center">
-         <form action="{{ route('dashboard.user.destroy', $users->id) }}" method="POST">
-            <a href="{{ route('user.show', '$users->id') }}" class="btn btn-info btn-sm">Show</a>
-            <a href="{{ route('user.edit', '$users->id') }}" class="btn btn-primary btn-sm">Edit</a>
+         <form action="{{ route('user.destroy',$data->id) }}" method="POST">
+            <a href="{{ route('user.show', $data->id) }}" class="btn btn-info btn-sm">Show</a>
+            <a href="{{ route('user.edit', $data->id) }}" class="btn btn-primary btn-sm">Edit</a>
+
             @method('delete')
             @csrf
+
             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Ingin Menghapus Data ini?')">Delete</button>
           </form>
         </td>
