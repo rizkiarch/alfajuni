@@ -19,9 +19,10 @@ class UserController extends Controller
     public function index()
     {
         //
-        return view('dashboard.user.index');
+        //  
 
         $users = User::latest()->paginate(5);
+        // return view('dashboard.user.index')->with($users);
         return view('dashboard.user.index', compact('users'))->with('i', (request()->Input('page',1) -1) * 5); 
     }
 
@@ -85,7 +86,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $users)
     {
         //
         $request->validate([
@@ -103,7 +104,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $users)
     {
         //
         $users->delete();

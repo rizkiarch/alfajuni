@@ -24,7 +24,7 @@ Route::get('/', function () {
 //     return view('dashboard.barang.index');
 // })->name('barang');
 // Route::get('/barang',[DashboardController::class, 'index']);
-Route::resource('/user', UserController::class);
+Route::resource('user', UserController::class);
 Route::resource('/barang', BarangController::class);
 Route::get('/dashboard',[DashboardController::class, 'index']);
 
