@@ -9,14 +9,13 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
+      
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
         <div class="info">
-          <a href="#" class="d-block">User</a>
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
+      
 
       <!-- SidebarSearch Form -->
       <div class="form-inline">
@@ -145,12 +144,15 @@
 
           {{-- Log Out --}}
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a class="nav-link" href="{{ route('logout')}}"
+              onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
               <i class="fas fa-power-off"></i>
-              <p>
-                Keluar
-              </p>
+              {{ __('Keluar') }}
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+            </form>
           </li>
           {{-- /Log Out --}}
         </ul>

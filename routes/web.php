@@ -27,3 +27,11 @@ Route::get('/', function () {
 Route::resource('/user', UserController::class);
 Route::resource('/barang', BarangController::class);
 Route::get('/dashboard',[DashboardController::class, 'index']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
