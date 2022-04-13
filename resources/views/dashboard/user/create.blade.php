@@ -33,14 +33,20 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Email</strong>
+                    <strong>Email Address</strong>
                     <input type="text" name="email" class="form-control" placeholder="Masukkan Nama">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
+                    <label for="InputPassword">Password</label>
+                    <input type="password" name="password" class="form-control" id="#">
+                  </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
                     <strong>Role</strong>
-                    <select class="custom-select" required>
+                    <select name="role" class="custom-select" required>
                         <option selected disabled value="">Choose...</option>
                         <option value="1">Marketing</option>
                         <option value="2">HRD</option>

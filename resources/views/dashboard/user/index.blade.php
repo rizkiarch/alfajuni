@@ -6,6 +6,9 @@
     <div class="floar-flat">
       <h2>User Role</h2>
     </div>
+    <div class="float-right">
+      <a href="{{ route('user.create') }}" class="btn btn-success">Add User</a>
+    </div>
   </div>
 </div>
 
