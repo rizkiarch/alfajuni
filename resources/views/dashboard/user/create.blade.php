@@ -28,7 +28,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Nama</strong>
-                    <input type="text" name="name" class="form-control" placeholder="Masukkan Nama">
+                    <input type="text" name="nama" class="form-control" placeholder="Masukkan Nama">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -48,9 +48,10 @@
                     <strong>Role</strong>
                     <select name="role" class="custom-select" required>
                         <option selected disabled value="">Choose...</option>
-                        <option value="1">Marketing</option>
-                        <option value="2">HRD</option>
-                        <option value="3">Karyawan</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="HRD">HRD</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Karyawan">Karyawan</option>
                       </select>
                 </div>
             </div>

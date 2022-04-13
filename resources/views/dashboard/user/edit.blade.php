@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <form action="{{ route('user.update', $users->id) }}" method="post">
+    <form action="{{ route('user.update',["user"=>$user->id])}}" method="post">
         @csrf
         @method('put')
 
@@ -29,19 +29,27 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Nama:</strong>
-                    <input type="text" name="name" class="form-control" value="{{ $users->name }}" placeholder="Masukkan Nama">
+                    <input type="text" name="name" class="form-control" value="{{ $user->name }}" placeholder="Masukkan Nama">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <input type="text" name="email" class="form-control" value="{{ $users->email }}" placeholder="Masukkan Nama">
+                    <input type="text" name="email" class="form-control" value="{{ $user->email }}" placeholder="Masukkan Nama">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <label for="role">Role</label>
-                    <input type="text" name="role" class="form-control" value="{{ $users->role }}">
+                    <div class="form-group">
+                        <strong>Role</strong>
+                        <select name="role" class="custom-select" required>
+                            <option selected disabled value="">Choose...</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="HRD">HRD</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Karyawan">Karyawan</option>
+                          </select>
+                    </div>
                   </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

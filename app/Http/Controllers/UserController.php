@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Controller;
 use Symfony\Component\Console\Input\Input;
+use Hash;
 
 
 class UserController extends Controller
@@ -21,7 +22,7 @@ class UserController extends Controller
         //
         //  
 
-        $users = User::latest()->paginate(5);
+        $users = User::orderBy('email','ASC')->latest()->paginate(5);
         // return view('dashboard.user.index')->with($users);
         return view('dashboard.user.index', compact('users'))->with('i', (request()->Input('page',1) -1) * 5); 
     }
@@ -47,13 +48,27 @@ class UserController extends Controller
     {
         //
         $request->validate([
-            'name' => 'required',
+            'nama' => 'required',
             'email' => 'required',
             'password' => 'required',
             'role' => 'required',
         ]);
-        User::create($request->all());
-        return redirect()->route('dashboard.user.index')->with('success', 'Data Berhasil di Input');
+        // dd(Hash::make($request->password));
+        $request->request->add([
+                                'name' => $request->nama, 
+                                'password' => Hash::make($request->password)
+                            ]);
+        $data = User::create($request->all());
+        // $request->request->add(['name' => $request->nama, 'password' => Hash::make($request->password)]);
+        // dd($data);
+
+        // $data = User::create([
+        //     'name' => $request->name,
+        //     'password' => Hash::make($request->password),
+        //     'email' => $request->email,
+        //     'role' => $request->role,
+        // ]);
+        return redirect()->route('user.index')->with('success', 'Data Berhasil di Input');
     }
 
     /**
@@ -62,10 +77,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $users)
+    public function show(User $user)
     {
         //
-        return view('dashboard.user.show', compact('users'));
+        return view('dashboard.user.show', compact('user'));
     }
 
     /**
@@ -74,10 +89,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $users)
+    public function edit(User $user)
     {
         //
-        return view('dashboard.user.edit', compact('users'));
+        // dd($user);
+        return view('dashboard.user.edit', compact('user'));
     }
 
     /**
@@ -87,7 +103,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $users)
+    public function update(Request $request, User $user)
     {
         //
         $request->validate([
@@ -95,8 +111,8 @@ class UserController extends Controller
             'email' => 'required',
             'role' => 'required',
         ]);
-        $users->update($request->all());
-        return redirect()->route('dashboard.user.index')->with('success', 'Data Berhasil di Update');
+        $user->update($request->all());
+        return redirect()->route('user.index')->with('success', 'Data Berhasil di Update');
     }
 
     /**
@@ -105,10 +121,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $users)
+    public function destroy(User $user)
     {
         //
-        $users->delete();
-        return redirect()->route('dashboard.user.index')->with('Success', 'Data Berhasil di Hapus');
+        // dd('masuk gak?');
+        $user->delete();
+        return redirect()->route('user.index')->with('success', 'Data Berhasil di Hapus');
     }
 }
