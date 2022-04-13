@@ -21,7 +21,7 @@ class UserController extends Controller
         //
         //  
 
-        $users = User::latest()->paginate(6);
+        $users = User::latest()->paginate(5);
         // return view('dashboard.user.index')->with($users);
         return view('dashboard.user.index', compact('users'))->with('i', (request()->Input('page',1) -1) * 5); 
     }
@@ -49,6 +49,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
+            'password' => 'required',
             'role' => 'required',
         ]);
         User::create($request->all());

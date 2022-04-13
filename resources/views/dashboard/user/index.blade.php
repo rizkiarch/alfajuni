@@ -49,6 +49,8 @@
       </tr>
     </tbody>
       @endforeach
-      
   </table>
+  <div class="row text-center">
+    {!! $users->links() !!}
+  </div>
 @endsection
