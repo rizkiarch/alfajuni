@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
 
 class BarangController extends Controller
 {
@@ -13,7 +17,8 @@ class BarangController extends Controller
      */
     public function index()
     {
-        return view('dashboard.barang.index');
+        $produk = Barang::orderBy('name', 'ASC')->latest()->paginate(5);
+        return view('dashboard.barang.index', compact('produk'))->with('i', (request()->input('page', 1) -1) * 5);
     }
 
     /**
@@ -23,7 +28,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.barang.create');
     }
 
     /**
@@ -34,7 +39,21 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id' => 'required',
+            'nomor' => 'required',
+            'nama' => 'required',
+            'harga_jual' => 'required',
+            'harga_beli' => 'required',
+            'discount' => 'required',
+            'potongan_harga' => 'required',
+            'merk' => 'required',
+            'kategori' => 'required',
+            'kelompok' => 'required',
+            'tbl_transaksi_id' => 'required',
+        ]);
+        Barang::create($request->all());
+        return redirect()->route('barang.index')->with('success', 'Tambah Barang Berhasil.');
     }
 
     /**
@@ -43,9 +62,9 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Barang $barang)
     {
-        //
+        return view('dashboard.barang.show', compact('barang'));
     }
 
     /**
@@ -54,9 +73,9 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Barang $barang)
     {
-        //
+        return view('dashboard.barang.edit', compact('barang'));
     }
 
     /**
@@ -66,9 +85,23 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Barang $barang)
     {
-        //
+        $request->validate([
+            'id' => 'required',
+            'nomor' => 'required',
+            'nama' => 'required',
+            'harga_jual' => 'required',
+            'harga_beli' => 'required',
+            'discount' => 'required',
+            'potongan_harga' => 'required',
+            'merk' => 'required',
+            'kategori' => 'required',
+            'kelompok' => 'required',
+            'tbl_transaksi_id' => 'required',
+        ]);
+        barang::update($request->all());
+        return redirect()->route('barang.index')->with('success', 'Tambah Barang Berhasil.');
     }
 
     /**
@@ -77,8 +110,9 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Barang $barang)
     {
-        //
+        $barang->delete();
+        return redirect()->route('barang.index')->with('success', 'Delete Barang Berhasil');
     }
 }

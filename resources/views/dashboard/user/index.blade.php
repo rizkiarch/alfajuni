@@ -17,51 +17,39 @@
     <p>{{ $message }}</p>  
   </div>    
 @endif
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Nama</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Role</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach ($users as $data)
+    <tr>
+      <th scope="row">{{ ++$i }}</th>
+      <td>{{ $data->name }}</td>
+      <td>{{ $data->email }}</td>
+      <td>{{ $data->role }}</td>
+      <td class="text-center">
+        <form action="{{ route('user.destroy', ["user" => $data->id]) }}" method="POST">
+          <a href="{{ route('user.show', $data->id) }}" class="btn btn-info btn-sm">Show</a>
+          <a href="{{ route('user.edit', $data->id) }}" class="btn btn-primary btn-sm">Edit</a>
+       
+          @method('delete')
+          @csrf
 
-<div class="card">
-  <div class="card-header">
-    Add User
-  </div>
-  <div class="card-body">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">No</th>
-          <th scope="col">Nama</th>
-          <th scope="col">E-mail</th>
-          <th scope="col">Role</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($users as $data)
-        <tr>
-          <th scope="row">{{ ++$i }}</th>
-          <td>{{ $data->name }}</td>
-          <td>{{ $data->email }}</td>
-          <td>{{ $data->role }}</td>
-          <td class="text-center">
-            <form action="{{ route('user.destroy', ["user" => $data->id]) }}" method="POST">
-              <a href="{{ route('user.show', $data->id) }}" class="btn btn-info btn-sm">Show</a>
-              <a href="{{ route('user.edit', $data->id) }}" class="btn btn-primary btn-sm">Edit</a>
-           
-              @method('delete')
-              @csrf
-  
-              <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Ingin Menghapus Data ini?')">Delete</button>
-            </form>
-          </td>
-        </tr>
-      </tbody>
-        @endforeach
-    </table>
-  </div>
-  <div class="card-footer">
-    <div class="pagination">
-      {{ $users->links() }}
-    </div>
-  </div>
-</div>
+          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Ingin Menghapus Data ini?')">Delete</button>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+    @endforeach
+</table>
+  {{ $users->links() }}
 
   {{-- {{ $users->links() }}
   <div class="pagination pagination-sm m-0 float-right">

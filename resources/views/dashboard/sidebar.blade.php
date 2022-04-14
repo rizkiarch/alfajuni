@@ -62,7 +62,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('barang.create') }}" class="nav-link">
                   <i class="fas fa-cart-plus"></i>
                   <p>
                     Tambah Barang
@@ -75,7 +75,7 @@
 
           {{-- Customer --}}
           <li class="nav-item">
-            <a href="{{ route('barang.index') }}" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="fas fa-user-friends"></i>
               <p>
                 Customer
@@ -105,11 +105,39 @@
             </ul>
           </li>
           {{-- /Transaksi --}}
+          
+          {{-- Karyawan --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-tie"></i>
+              <p>
+                Karyawan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('user.index') }}" class="nav-link">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>Semua User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('user.create') }}" class="nav-link">
+                  <i class="fas fa-user-plus nav-icon"></i>
+                  <p>
+                    Tambah Karyawan
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          {{-- /Karyawan --}}
 
           {{-- User --}}
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-users-cog"></i>
               <p>
                 User
                 <i class="right fas fa-angle-left"></i>
